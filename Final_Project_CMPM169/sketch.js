@@ -14,7 +14,8 @@ let gameoverFont;
 let UIText ="FEED ME."
 let scoreText ="Score: "
 let GameOverText ="Game Over !"
-let turnoffscoreText = false;
+let fadeText;
+let fadeAmount = 1;
 
 let soundClassifier;
 let background_audio;
@@ -49,9 +50,7 @@ function setup() {
   textSize(32);
   textAlign(LEFT, TOP);
   
-  
-  
-  
+  fadeText = 0;
   dragon = new Dragon();
   
   const options = {probablityThreshold: 0.95};
@@ -83,13 +82,19 @@ function keyPressed(){
      // play audio effect
         FlySFX.play();
   }
-}
+} 
 
 function draw(){
   background(backgroundImg);
   //animation(sequenceAnimation, 100, 100);
   
   // translate(this.dragon);
+  fill(0, 0, 0, fadeText);
+  text("(Press spacebar to fly.)", 100, 100);
+  if(fadeText>255){
+    fadeAmount = -10;
+  }
+  fadeText += fadeAmount;
   
   if(score == 0){
   // score UI
@@ -119,12 +124,21 @@ function draw(){
   for(let m of meats){
     m.move();
     m.show();
-     if(dragon.collects(m)){
-         meats.splice(m,1);
-      console.log("SCORE: ", ++score);
-       // play audio effect
-        BiteSFX.play();
-     }
+    if(dragon.collects(m)){
+      score++;
+      console.log("SCORE: ",score);
+      // play audio effect
+      BiteSFX.play();
+      // destroys object at the beginning of array
+      meats.shift();
+    }
+    // removes 1 element from the array, starting at position 0.
+    if(m.outofBounds()){
+     // console.log("Meat deleted due to out of bounds function.");
+      meats.splice(0,1);
+
+    }
+
   }
 
   for(let a of arrows){

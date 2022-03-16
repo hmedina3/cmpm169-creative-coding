@@ -11,7 +11,11 @@ class Meats{
   move(){
     this.x -= 3;
   }
-  
+
+  outofBounds(){
+      return(this.x < 0);
+  }
+
   show(){
     // x an y postion, followed by the size of the object width and height
     image(meatImg, this.x, this.y, this.r, this.r);

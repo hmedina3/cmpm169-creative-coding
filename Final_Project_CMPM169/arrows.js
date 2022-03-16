@@ -14,9 +14,10 @@ class Arrows{
   
   show(){
     // x an y postion, followed by the size of the object width and height
-    image(arrowImg, this.x, this.y, this.r -50, this.r -50);
-   // fill(255, 50);
-   // rect(this.x, this.y, this.r, this.r);
+    image(arrowImg, this.x, this.y, this.r-50, this.r-50);
+    /*** Debugging for arrow collider ***/
+      fill(255, 50);
+      rect(this.x, this.y, this.r, this.r);
   }
   
 }
