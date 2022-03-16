@@ -92,7 +92,7 @@ function draw(){
   fill(0, 0, 0, fadeText);
   text("(Press spacebar to fly.)", 100, 100);
   if(fadeText>255){
-    fadeAmount = -10;
+    fadeAmount = -2;
   }
   fadeText += fadeAmount;
   
