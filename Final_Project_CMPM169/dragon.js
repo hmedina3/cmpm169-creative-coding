@@ -21,7 +21,7 @@ class Dragon{
   // arrows - collider's
   hits(arrows){
     // imported library p5.collide2D to use this collider function
-    return collideRectCircle(arrows.x,arrows.y, arrows.r, arrows.r, this.x + 5, this.y + 10, this.r - 20);
+    return collideRectCircle(arrows.x +1, arrows.y-2, arrows.r, arrows.r, this.x + 5, this.y + 10, this.r - 20);
   }
 
   // meats - collider's
