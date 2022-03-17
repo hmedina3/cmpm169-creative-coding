@@ -5,17 +5,19 @@ let arrowImg;
 let meatImg;
 let backgroungImg;
 
-let arrows = [];
-let meats = [];
+let arrows;
+let meats;
 
-let score = 0;
+let score;
 let scoreFont;
+let resetButtonFont;
 let gameoverFont;
-let UIText ="FEED ME."
-let scoreText ="Score: "
-let GameOverText ="Game Over !"
+let UIText;
+let scoreText;
+let GameOverText;
+let RestartButtonText;
 let fadeText;
-let fadeAmount = 1;
+let fadeAmount;
 
 let soundClassifier;
 let background_audio;
@@ -24,6 +26,11 @@ let voiceover_audio;
 let BiteSFX;
 let FlySFX;
 let HighFlyBoostSFX;
+let ButtonPressSFX;
+
+let resetButton;
+let timerinSeconds;
+let interval;
 
 function preload(){
   
@@ -37,26 +44,43 @@ function preload(){
    BiteSFX = loadSound("Biting_SFX.mp3");
    FlySFX = loadSound("Flying_SFX.mp3");
    HighFlyBoostSFX = loadSound("HighFlyBoost_SFX.mp3");
+   ButtonPressSFX = loadSound("ButtonPress_SFX.wav");
  
    gameoverFont = loadFont('Gill Sans.otf');
    scoreFont = loadFont('Gill Sans.otf');
+   resetButtonFont = loadFont('Gill Sans.otf');
+
 }
 
 function setup() {
-  
   createCanvas(600, 450);
-  
+  startGame();
+}
+
+function startGame(){
+
+  arrows = [];
+  meats = [];
+
+  UIText = "FEED ME."
+  scoreText ="Score: "
+  GameOverText ="Game Over !"
+  RestartButtonText = "Restart game?"
+
   textFont(scoreFont);
   textSize(32);
   textAlign(LEFT, TOP);
   
   fadeText = 0;
+  fadeAmount = 1;
+  score = 0;
   dragon = new Dragon();
   
   const options = {probablityThreshold: 0.95};
   soundClassifier = ml5.soundClassifier('SpeechCommands18w', options, modelReady);
   // loops and plays background audio at the start of the scene.
   song.loop();
+  timerinSeconds = 2;
 }
 
 function modelReady(){
@@ -156,10 +180,52 @@ function draw(){
      fill('red');
      textAlign(CENTER, CENTER);
      text(GameOverText, 300, 150);
+
+     resetButton = createButton(RestartButtonText);
+     resetButton.style('color', '#FFFFFF');
+     resetButton.style('background-color', '#003366');
+     resetButton.style('font-family', resetButtonFont);
+     resetButton.style('font-size', '16px');
+     resetButton.style('width', '150px');
+     resetButton.style('border', '1px solid black');
+     resetButton.style('border-radius', '12px');
+     resetButton.position(215,200);
+     //resetButton.mousePressed(startGame);
+     resetButton.mousePressed(setTimer);
     song.stop(); 
     // shuts game down.
     noLoop();
   }
+
   
  }
+
+ function EndSketch(){
+     startGame();
+     loop();
+     resetButton.remove();
+ }
+
+ function setTimer(){
+  resetButton.style('color', '#FFFFFF');
+  resetButton.style('background-color', '#32CD32');
+  // play audio effect
+  ButtonPressSFX.play();
+   // three second timer;
+  interval = setInterval(timer, 1000);
+ }
+
+ function timer(){
+   if(timerinSeconds > 0){
+     timerinSeconds--;
+     console.log(timerinSeconds);
+   }
+
+   if(timerinSeconds == 0){
+     clearInterval(interval);
+     EndSketch();
+   }
+ }
+
+
 }// end of sketch. js
