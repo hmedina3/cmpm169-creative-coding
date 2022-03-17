@@ -80,6 +80,7 @@ function startGame(){
   soundClassifier = ml5.soundClassifier('SpeechCommands18w', options, modelReady);
   // loops and plays background audio at the start of the scene.
   song.loop();
+  song.setVolume(0.1);
   timerinSeconds = 2;
 }
 
@@ -97,6 +98,7 @@ function gotCommand(error, results){
     dragon.superjump();
     // play audio effect
         HighFlyBoostSFX.play();
+        HighFlyBoostSFX.setVolume(0.1);
   } 
 }
 
@@ -105,6 +107,7 @@ function keyPressed(){
     dragon.jump();
      // play audio effect
         FlySFX.play();
+        FlySFX.setVolume(0.1);
   }
 } 
 
@@ -153,6 +156,7 @@ function draw(){
       console.log("SCORE: ",score);
       // play audio effect
       BiteSFX.play();
+      BiteSFX.setVolume(0.1);
       // destroys object at the beginning of array
       meats.shift();
     }
@@ -173,14 +177,16 @@ function draw(){
    console.log("Game Over.");
     turnoffscoreText = true;
     gameover_audio.play();
+    gameover_audio.setVolume(0.1);
     voiceover_audio.play();
+    voiceover_audio.setVolume(0.2);
     // gameover - UI
      textFont(gameoverFont);
      textSize(48);
      fill('red');
      textAlign(CENTER, CENTER);
      text(GameOverText, 300, 150);
-
+    // creates restart button with specific styles.
      resetButton = createButton(RestartButtonText);
      resetButton.style('color', '#FFFFFF');
      resetButton.style('background-color', '#003366');
@@ -190,7 +196,6 @@ function draw(){
      resetButton.style('border', '1px solid black');
      resetButton.style('border-radius', '12px');
      resetButton.position(215,200);
-     //resetButton.mousePressed(startGame);
      resetButton.mousePressed(setTimer);
     song.stop(); 
     // shuts game down.
@@ -211,6 +216,7 @@ function draw(){
   resetButton.style('background-color', '#32CD32');
   // play audio effect
   ButtonPressSFX.play();
+  ButtonPressSFX.setVolume(0.1); 
    // three second timer;
   interval = setInterval(timer, 1000);
  }
