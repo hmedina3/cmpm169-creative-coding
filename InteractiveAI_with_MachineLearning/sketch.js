@@ -36,6 +36,10 @@ let intervalForCountDown;
 let voiceCommandsText;
 let soundClassifier;
 
+let singleGo = true;
+let singleYes = true;
+let singleStop = true;
+
 function preload(){
   
   scanningSFX = loadSound("Scanning_1.mp3");
@@ -115,20 +119,22 @@ function gotCommand(error, results){
     return;
   }
   //console.log(results[0].label, results[0].confidence);
-  if(results[0].label == 'go'){
+  if(results[0].label == 'go' && singleGo){
     // play audio effect
         initiating_sequenceSFX.play();
         initiating_sequenceSFX.setVolume(0.5);
+        singleGo = false;
         setTimeout(function(){setCountDown();}, 2000); 
   }
-  if(results[0].label == 'yes'){
-    
-       x = true;
+  if(results[0].label == 'yes' && singleYes){
+      singleYes = false;
+      x = true;
       installation_completeSFX.play();
       installation_completeSFX.setVolume(0.5);
     
      }
-  if(results[0].label == 'stop'){
+  if(results[0].label == 'stop' && singleStop){
+        singleStop = false;
         goodDaySFX.play();
         goodDaySFX.setVolume(0.5);
     // plays audio after three seconds;
@@ -137,6 +143,13 @@ function gotCommand(error, results){
                            remove();}, 2000); 
      }
   }
+
+function playgif_Audio(){
+  if(!Exploding_gif_audio.isPlaying()){
+     Exploding_gif_audio.play();
+     Exploding_gif_audio.setVolume(0.5);
+  }
+}
 
 function setCountDown(){
   countTimer();
@@ -183,8 +196,7 @@ function draw() {
   if(SecondsforCount == 0){
     image(Exploding_gif,0,0);
     Exploding_gif.play();
-    Exploding_gif_audio.play();
-    Exploding_gif_audio.setVolume(0.5);
+    playgif_Audio();
   }
   
   
