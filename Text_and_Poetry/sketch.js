@@ -55,7 +55,7 @@ function draw() {
   background(0);
   // line 1
   fill(255,line1_fade);
-  text(line1, 100, 100);
+  text(line1, 90, 100);
   if (line1_fade < 0) line1_fadeAmount=1; 
   line1_fade += line1_fadeAmount; 
   // starts timer for second line.
@@ -64,7 +64,7 @@ function draw() {
   }
   if(savedTime == 10){
      fill(255, line2_fade);
-     text(line2, 100, 150);
+     text(line2, 90, 150);
      if (line2_fade < 0) line2_fadeAmount = 1;
      line2_fade += line2_fadeAmount;
   }
@@ -72,7 +72,7 @@ function draw() {
   // starts timer for third line.
   if(timerinSeconds == 0){
      fill(255, line3_fade);
-     text(line3, 100, 200);
+     text(line3, 90, 200);
      if (line3_fade < 0) line3_fadeAmount = 1;
      line3_fade += line3_fadeAmount;
      clearInterval(interval);
