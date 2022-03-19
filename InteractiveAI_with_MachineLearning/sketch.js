@@ -135,6 +135,7 @@ function gotCommand(error, results){
      }
   if(results[0].label == 'stop' && singleStop){
         singleStop = false;
+        Exploding_gif_audio.stop();
         goodDaySFX.play();
         goodDaySFX.setVolume(0.5);
     // plays audio after three seconds;
