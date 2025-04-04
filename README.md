@@ -1,3 +1,3 @@
 # cmpm169-creative-coding
 
-All projects done in UC Santa Cruz's creative coding course.
+A collection of projects and experiments from CMPM 169, exploring generative art, interactive visuals, and creative coding techniques using JavaScript, p5.js, and other digital media tools. 🚀
